@@ -8,6 +8,7 @@ def ball_movement():
 
     # Move the ball
     # Hello this is a change
+    #MY BALLS ITCH
     ball.x += ball_speed_x
     ball.y += ball_speed_y
 
