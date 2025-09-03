@@ -7,6 +7,7 @@ def ball_movement():
     global ball_speed_x, ball_speed_y, score, start
 
     # Move the ball
+    # Hello this is a change
     ball.x += ball_speed_x
     ball.y += ball_speed_y
 
