@@ -8,7 +8,6 @@ def ball_movement():
 
     # Move the ball
     # Hello this is a change
-    #MY BALLS ITCH
     ball.x += ball_speed_x
     ball.y += ball_speed_y
 
@@ -78,8 +77,8 @@ bg_color = pygame.Color('grey12')
 # Game Rectangles (ball and player paddle)
 ball = pygame.Rect(screen_width / 2 - 15, screen_height / 2 - 15, 30, 30)  # Ball (centered)
 # TODO Task 1 Make the paddle bigger
-player_height = 15
-player_width = 100
+player_height = 22.5
+player_width = 155
 player = pygame.Rect(screen_width/2 - 45, screen_height - 20, player_width, player_height)  # Player paddle
 
 # Game Variables
