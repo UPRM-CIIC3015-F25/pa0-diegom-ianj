@@ -1,5 +1,11 @@
 import pygame, sys, random
 
+#These lines of code handle the music of this project
+pygame.init()
+soundtrack = pygame.mixer.music.load("Teen Titans - Intro (Karaoke).wav")
+pygame.mixer.music.set_volume(0.6)
+pygame.mixer.music.play()
+
 def ball_movement():
     """
     Handles the movement of the ball and collision detection with the player and screen boundaries.
@@ -27,6 +33,7 @@ def ball_movement():
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 6: Add sound effects HERE
             sfx=pygame.mixer.Sound('deltarune explosion greenscreen.wav')
+            sfx.set_volume(0.4)
             sfx.play()
 
     # Ball collision with top boundary
@@ -132,4 +139,4 @@ while True:
 
     # Update display
     pygame.display.flip()
-    clock.tick(60)  # Maintain 60 frames per second
+    (clock.tick(60))  # Maintain 60 frames per second
