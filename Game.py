@@ -26,6 +26,8 @@ def ball_movement():
             score += 1  # Increase player score
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 6: Add sound effects HERE
+            sfx=pygame.mixer.Sound('deltarune explosion greenscreen.wav')
+            sfx.play()
 
     # Ball collision with top boundary
     if ball.top <= 0:
@@ -96,7 +98,7 @@ start = False  # Indicates if the game has started
 while True:
     # Event handling
     # TODO Task 4: Add your name
-    name = "John Doe"
+    name = "Diego"
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Quit the game
             pygame.quit()
