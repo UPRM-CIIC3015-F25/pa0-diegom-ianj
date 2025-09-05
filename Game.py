@@ -1,10 +1,6 @@
 import pygame, sys, random
 
 #These lines of code handle the music of this project
-pygame.init()
-soundtrack = pygame.mixer.music.load("Teen Titans - Intro (Karaoke).wav")
-pygame.mixer.music.set_volume(0.6)
-pygame.mixer.music.play()
 
 def ball_movement():
     """
@@ -117,6 +113,10 @@ while True:
                 player_speed += 6  # Move paddle right
             if event.key == pygame.K_SPACE:
                 start = True  # Start the ball movement
+                pygame.init()
+                soundtrack = pygame.mixer.music.load("Teen Titans - Intro (Karaoke).wav")
+                pygame.mixer.music.set_volume(0.6)
+                pygame.mixer.music.play()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 player_speed += 6  # Stop moving left
