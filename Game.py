@@ -81,6 +81,8 @@ bg_color = pygame.Color('grey12')
 
 # Game Rectangles (ball and player paddle)
 ball = pygame.Rect(screen_width / 2 - 15, screen_height / 2 - 15, 30, 30)  # Ball (centered)
+ball_image = pygame.image.load('png-transparent-dvd-logo-blu-ray-disc-dvd-video-logo-dvd-logo-icon-miscellaneous-blue-text.png').convert_alpha()
+ball_image = pygame.transform.scale(ball_image, (60, 40))
 # TODO Task 1 Make the paddle bigger
 player_height = 22.5
 player_width = 155
@@ -133,9 +135,9 @@ while True:
     screen.fill(bg_color)  # Clear screen with background color
     pygame.draw.rect(screen, light_grey, player)  # Draw player paddle
     # TODO Task 3: Change the Ball Color
-    pygame.draw.ellipse(screen, red, ball)  # Draw ball
     player_text = basic_font.render(f'{score}', False, light_grey)  # Render player score
     screen.blit(player_text, (screen_width/2 - 15, 10))  # Display score on screen
+    screen.blit(ball_image, ball)
 
     # Update display
     pygame.display.flip()
