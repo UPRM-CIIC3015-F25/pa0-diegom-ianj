@@ -1,4 +1,4 @@
-import pygame, sys, random
+import pygame, sys, random, os
 
 
 def ball_movement():
@@ -41,7 +41,7 @@ def ball_movement():
 
     # Ball goes below the bottom boundary (missed by player)
     if ball.bottom > screen_height:
-        restart()  # Reset the game
+        restart() # Reset the game
 
 def player_movement():
     """
@@ -97,7 +97,6 @@ score = 0
 basic_font = pygame.font.Font('freesansbold.ttf', 32)  # Font for displaying score
 
 start = False  # Indicates if the game has started
-
 # Main game loop
 while True:
     # Event handling
