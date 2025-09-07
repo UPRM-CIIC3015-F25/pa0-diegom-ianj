@@ -40,6 +40,12 @@ def ball_movement():
                 else:
                     ball_speed_y -= 1
 
+                #paddle will shrink with every 5 bounces here
+                min_width = 50
+                shrink_amount = 10
+                if player.width > min_width:
+                        player.width -= shrink_amount
+
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 6: Add sound effects HERE
             sfx=pygame.mixer.Sound('deltarune explosion greenscreen.wav')
@@ -78,7 +84,8 @@ def restart():
     ball.center = (screen_width / 2, screen_height / 2)  # Reset ball position to center
     ball_speed_y, ball_speed_x = 0, 0  # Stop ball movement
     score = 0  # Reset player score
-    bounce_count = 0
+    bounce_count = 0 #reset ball speed
+    player.width = 155 #reset paddle size
 
 # General setup
 pygame.mixer.pre_init(44100, -16, 1, 1024)
