@@ -2,19 +2,18 @@ import pygame, sys, random
 
 
 def ball_movement():
-    """
-    Handles the movement of the ball and collision detection with the player and screen boundaries.
-    """
+    # """
+    # Handles the movement of the ball and collision detection with the player and screen boundaries.
+    # """
     global ball_speed_x, ball_speed_y, score, start
 
     # Move the ball
-    # Hello this is a change
     ball.x += ball_speed_x
     ball.y += ball_speed_y
 
     # Start the ball movement when the game begins
     # TODO Task 5 Create a Merge Conflict
-    speed = 9
+    speed = 5
     if start:
         ball_speed_x = speed * random.choice((1, -1))  # Randomize initial horizontal direction
         ball_speed_y = speed * random.choice((1, -1))  # Randomize initial vertical direction
@@ -25,6 +24,22 @@ def ball_movement():
         if abs(ball.bottom - player.top) < 10:  # Check if ball hits the top of the paddle
             # TODO Task 2: Fix score to increase by 1
             score += 1  # Increase player score
+
+            #ball bounce counter
+            global bounce_count
+            bounce_count += 1
+            #increase speed every 5 bounces
+            if bounce_count % 5 == 0:
+                if ball_speed_x > 0:
+                    ball_speed_x += 1
+                else:
+                    ball_speed_x -= 1
+
+                if ball_speed_y > 0:
+                    ball_speed_y += 1
+                else:
+                    ball_speed_y -= 1
+
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 6: Add sound effects HERE
             sfx=pygame.mixer.Sound('deltarune explosion greenscreen.wav')
@@ -59,10 +74,11 @@ def restart():
     """
     Resets the ball and player scores to the initial state.
     """
-    global ball_speed_x, ball_speed_y, score
+    global ball_speed_x, ball_speed_y, score, bounce_count
     ball.center = (screen_width / 2, screen_height / 2)  # Reset ball position to center
     ball_speed_y, ball_speed_x = 0, 0  # Stop ball movement
     score = 0  # Reset player score
+    bounce_count = 0
 
 # General setup
 pygame.mixer.pre_init(44100, -16, 1, 1024)
@@ -94,6 +110,7 @@ player_speed = 0
 
 # Score Text setup
 score = 0
+bounce_count = 0
 basic_font = pygame.font.Font('freesansbold.ttf', 32)  # Font for displaying score
 
 start = False  # Indicates if the game has started
