@@ -1,4 +1,4 @@
-import pygame, sys, random, os
+import pygame, sys, random
 
 
 def ball_movement():
@@ -28,7 +28,7 @@ def ball_movement():
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 6: Add sound effects HERE
             sfx=pygame.mixer.Sound('deltarune explosion greenscreen.wav')
-            sfx.set_volume(0.4)
+            sfx.set_volume(0.3)
             sfx.play()
 
     # Ball collision with top boundary
@@ -101,7 +101,7 @@ start = False  # Indicates if the game has started
 while True:
     # Event handling
     # TODO Task 4: Add your name
-    name = "Diego"
+    name = "Ian & Diego"
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Quit the game
             pygame.quit()
@@ -112,12 +112,15 @@ while True:
             if event.key == pygame.K_RIGHT:
                 player_speed += 6  # Move paddle right
             if event.key == pygame.K_SPACE:
-                start = True  # Start the ball movement
-                pygame.init()
-                #These lines of code handle the music of this project
-                soundtrack = pygame.mixer.music.load("Teen Titans - Intro (Karaoke).wav")
-                pygame.mixer.music.set_volume(0.6)
-                pygame.mixer.music.play()
+                if ball_speed_x == 0 and ball_speed_y == 0:
+                    start = True  # Start the ball movement
+                    pygame.init()
+                    #These lines of code handle the music of this project
+                    pygame.mixer.music.load("Teen Titans - Intro (Karaoke).wav")
+                    pygame.mixer.music.set_volume(0.5)
+                    pygame.mixer.music.play(-1) #(-1) Makes the music loop
+                else:
+                    pass
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 player_speed += 6  # Stop moving left
