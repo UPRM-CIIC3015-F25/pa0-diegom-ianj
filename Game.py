@@ -15,8 +15,8 @@ def ball_movement():
     # TODO Task 5 Create a Merge Conflict
     speed = 7
     if start:
-        ball_speed_x = speed * random.choice((1, -1))  # Randomize initial horizontal direction
-        ball_speed_y = speed * random.choice((1, -1))  # Randomize initial vertical direction
+        ball_speed_x = speed * random.choice((-1, 1.4))  # Randomize initial horizontal direction
+        ball_speed_y = speed * random.choice((-1.3, 1))  # Randomize initial vertical direction
         start = False
 
     # Ball collision with the player paddle
@@ -92,7 +92,7 @@ def restart():
     ball_speed_y, ball_speed_x = 0, 0  # Stop ball movement
     score = 0  # Reset player score
     bounce_count = 0 #reset ball speed
-    player.width = 155 #reset paddle size
+    player.width = 185 #reset paddle size
 
 # General setup
 pygame.mixer.pre_init(44100, -16, 1, 1024)
@@ -100,8 +100,8 @@ pygame.init()
 clock = pygame.time.Clock()
 
 # Main Window setup
-screen_width = 500  # Screen width (can be adjusted)
-screen_height = 500  # Screen height (can be adjusted)
+screen_width = 510  # Screen width (can be adjusted)
+screen_height = 510  # Screen height (can be adjusted)
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Pong')  # Set window title
 
@@ -112,8 +112,8 @@ bg_color = pygame.Color('grey12')
 ball = pygame.Rect(screen_width / 2 - 15, screen_height / 2 - 15, 30, 30)  # Ball (centered)
 ball_image = pygame.transform.scale(ball_image, (60, 40))
 # TODO Task 1 Make the paddle bigger
-player_height = 22.5
-player_width = 155
+player_height = 23.5
+player_width = 185
 player = pygame.Rect(screen_width/2 - 45, screen_height - 20, player_width, player_height)  # Player paddle
 
 # Game Variables
@@ -138,9 +138,9 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player_speed -= 6  # Move paddle left
+                player_speed -= 7.3  # Move paddle left
             if event.key == pygame.K_RIGHT:
-                player_speed += 6  # Move paddle right
+                player_speed += 7.3  # Move paddle right
             if event.key == pygame.K_SPACE:
                 if ball_speed_x == 0 and ball_speed_y == 0:
                     start = True  # Start the ball movement
@@ -153,9 +153,9 @@ while True:
                     pass
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
-                player_speed += 6  # Stop moving left
+                player_speed += 7.3  # Stop moving left
             if event.key == pygame.K_RIGHT:
-                player_speed -= 6  # Stop moving right
+                player_speed -= 7.3  # Stop moving right
 
     # Game Logic
     ball_movement()
