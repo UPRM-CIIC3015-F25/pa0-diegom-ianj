@@ -1,6 +1,14 @@
 import pygame, sys, random
+from game_test import start_screen, game_over
 
-ball_image = pygame.image.load('Dvd_logo.svg.png') or pygame.image.load('red_dvd.png')
+ball_image_logo = (pygame.image.load('Dvd_logo.svg.png').convert_alpha())
+ball_image_red = pygame.image.load('red_dvd.png').convert_alpha()
+
+ball_image_red = pygame.transform.scale(ball_image_red, (60, 40))
+ball_image_logo = pygame.transform.scale(ball_image_logo, (60, 40))
+
+ball_image = ball_image_red
+
 def ball_movement():
     # """
     # Handles the movement of the ball and collision detection with the player and screen boundaries.
@@ -30,11 +38,9 @@ def ball_movement():
             bounce_count += 1
             #increase speed every 5 bounces
             if bounce_count % 2 == 0:
-                ball_image = pygame.image.load('Dvd_logo.svg.png').convert_alpha()
-                ball_image = pygame.transform.scale(ball_image, (60, 40))
+                ball_image = ball_image_logo
             else:
-                ball_image = pygame.image.load('red_dvd.png').convert_alpha()
-                ball_image = pygame.transform.scale(ball_image, (60, 40))
+                ball_image = ball_image_red
 
             if bounce_count % 5 == 0:
                 if ball_speed_x > 0:
@@ -46,7 +52,6 @@ def ball_movement():
                     ball_speed_y += 1
                 else:
                     ball_speed_y -= 1
-
                 #paddle will shrink with every 5 bounces here
                 min_width = 50
                 shrink_amount = 10
@@ -69,6 +74,7 @@ def ball_movement():
 
     # Ball goes below the bottom boundary (missed by player)
     if ball.bottom > screen_height:
+        game_over() #show game over screen
         restart() # Reset the game
 
 def player_movement():
@@ -85,16 +91,28 @@ def player_movement():
 
 def restart():
     """
-    Resets the ball and player scores to the initial state.
+    Resets the ball, player score, player width, and bounce count to the initial state.
     """
-    global ball_speed_x, ball_speed_y, score, bounce_count
+    global ball_speed_x, ball_speed_y, score, bounce_count, start, player, player_speed
+
     ball.center = (screen_width / 2, screen_height / 2)  # Reset ball position to center
     ball_speed_y, ball_speed_x = 0, 0  # Stop ball movement
+
+    player.width = 185 #resets paddle size
+    player.x = screen_width / 2 - player.width / 2  # recenter paddle
+    player.y = screen_height - player.height - 10
+
+    player_speed = 0
+
     score = 0  # Reset player score
     bounce_count = 0 #reset ball speed
-    player.width = 185 #reset paddle size
+
+    start = False #this ensures SPACE restarts the game
 
 # General setup
+
+start_screen()#displays start screen
+
 pygame.mixer.pre_init(44100, -16, 1, 1024)
 pygame.init()
 clock = pygame.time.Clock()
@@ -144,7 +162,6 @@ while True:
             if event.key == pygame.K_SPACE:
                 if ball_speed_x == 0 and ball_speed_y == 0:
                     start = True  # Start the ball movement
-                    pygame.init()
                     #These lines of code handle the music of this project
                     pygame.mixer.music.load("Teen Titans - Intro (Karaoke).wav")
                     pygame.mixer.music.set_volume(0.5)
