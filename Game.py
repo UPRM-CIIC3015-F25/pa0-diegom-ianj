@@ -1,11 +1,11 @@
 import pygame, sys, random
 
-
+ball_image = pygame.image.load('Dvd_logo.svg.png') or pygame.image.load('red_dvd.png')
 def ball_movement():
     # """
     # Handles the movement of the ball and collision detection with the player and screen boundaries.
     # """
-    global ball_speed_x, ball_speed_y, score, start
+    global ball_speed_x, ball_speed_y, score, start, ball_image
 
     # Move the ball
     ball.x += ball_speed_x
@@ -29,6 +29,13 @@ def ball_movement():
             global bounce_count
             bounce_count += 1
             #increase speed every 5 bounces
+            if bounce_count % 2 == 0:
+                ball_image = pygame.image.load('Dvd_logo.svg.png').convert_alpha()
+                ball_image = pygame.transform.scale(ball_image, (60, 40))
+            else:
+                ball_image = pygame.image.load('red_dvd.png').convert_alpha()
+                ball_image = pygame.transform.scale(ball_image, (60, 40))
+
             if bounce_count % 5 == 0:
                 if ball_speed_x > 0:
                     ball_speed_x += 1
@@ -103,7 +110,6 @@ bg_color = pygame.Color('grey12')
 
 # Game Rectangles (ball and player paddle)
 ball = pygame.Rect(screen_width / 2 - 15, screen_height / 2 - 15, 30, 30)  # Ball (centered)
-ball_image = pygame.image.load('png-transparent-dvd-logo-blu-ray-disc-dvd-video-logo-dvd-logo-icon-miscellaneous-blue-text.png').convert_alpha()
 ball_image = pygame.transform.scale(ball_image, (60, 40))
 # TODO Task 1 Make the paddle bigger
 player_height = 22.5
