@@ -1,5 +1,5 @@
 import pygame, sys, random
-from game_test import start_screen, game_over
+from game_test import start_screen, game_over, draw_text
 
 ball_image_logo = (pygame.image.load('Dvd_logo.svg.png').convert_alpha())
 ball_image_red = pygame.image.load('red_dvd.png').convert_alpha()
@@ -8,6 +8,8 @@ ball_image_red = pygame.transform.scale(ball_image_red, (60, 40))
 ball_image_logo = pygame.transform.scale(ball_image_logo, (60, 40))
 
 ball_image = ball_image_red
+
+pause = False
 
 def ball_movement():
     # """
@@ -145,6 +147,7 @@ bounce_count = 0
 basic_font = pygame.font.Font('freesansbold.ttf', 32)  # Font for displaying score
 
 start = False  # Indicates if the game has started
+
 # Main game loop
 while True:
     # Event handling
@@ -154,11 +157,25 @@ while True:
         if event.type == pygame.QUIT:  # Quit the game
             pygame.quit()
             sys.exit()
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 player_speed -= 7.3  # Move paddle left
             if event.key == pygame.K_RIGHT:
                 player_speed += 7.3  # Move paddle right
+
+            if event.key == pygame.K_ESCAPE:
+                if pause:
+                    pause = False
+                    pygame.mixer.music.unpause()
+                else:
+                    pause = True
+                    pygame.mixer.music.pause()
+                    while pause == True:
+                        text_font = pygame.font.SysFont('Press Start 2P', 80)
+                        draw_text("Paused", text_font, (255, 255, 255), 175, 185)
+                        pygame.display.flip()
+
             if event.key == pygame.K_SPACE:
                 if ball_speed_x == 0 and ball_speed_y == 0:
                     start = True  # Start the ball movement
@@ -168,6 +185,7 @@ while True:
                     pygame.mixer.music.play(-1) #(-1) Makes the music loop
                 else:
                     pass
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 player_speed += 7.3  # Stop moving left
@@ -175,8 +193,9 @@ while True:
                 player_speed -= 7.3  # Stop moving right
 
     # Game Logic
-    ball_movement()
-    player_movement()
+    if not pause:
+        ball_movement()
+        player_movement()
 
     # Visuals
     light_grey = pygame.Color('grey83')
