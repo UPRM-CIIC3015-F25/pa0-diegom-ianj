@@ -1,6 +1,7 @@
 import pygame, sys, random
 from game_test import start_screen, game_over, draw_text
 
+#Replacing the ball with images of dvd logos (blue and red)
 ball_image_logo = (pygame.image.load('Dvd_logo.svg.png').convert_alpha())
 ball_image_red = pygame.image.load('red_dvd.png').convert_alpha()
 
@@ -9,13 +10,13 @@ ball_image_logo = pygame.transform.scale(ball_image_logo, (60, 40))
 
 ball_image = ball_image_red
 
-pause = False
+pause = False #Pause Feature
 
 def ball_movement():
     # """
     # Handles the movement of the ball and collision detection with the player and screen boundaries.
     # """
-    global ball_speed_x, ball_speed_y, score, start, ball_image, pause
+    global ball_speed_x, ball_speed_y, score, start, ball_image, pause #Globalized ball_image, pause and start
 
     # Move the ball
     ball.x += ball_speed_x
@@ -35,10 +36,10 @@ def ball_movement():
             # TODO Task 2: Fix score to increase by 1
             score += 1  # Increase player score
 
-            #ball bounce counter
+            #Ball bounce counter
             global bounce_count
             bounce_count += 1
-            #increase speed every 5 bounces
+            #Increase speed every 5 bounces
             if bounce_count % 2 == 0:
                 ball_image = ball_image_logo
             else:
@@ -54,7 +55,7 @@ def ball_movement():
                     ball_speed_y += 1
                 else:
                     ball_speed_y -= 1
-                #paddle will shrink with every 5 bounces here
+                #Paddle will shrink with every 5 bounces here
                 min_width = 50
                 shrink_amount = 10
                 if player.width > min_width:
@@ -62,7 +63,7 @@ def ball_movement():
 
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 6: Add sound effects HERE
-            sfx=pygame.mixer.Sound('deltarune explosion greenscreen.wav')
+            sfx=pygame.mixer.Sound('deltarune explosion greenscreen.wav') #Added sfx to ball hitting paddle
             sfx.set_volume(0.2)
             sfx.play()
 
@@ -76,8 +77,8 @@ def ball_movement():
 
     # Ball goes below the bottom boundary (missed by player)
     if ball.bottom > screen_height:
-        game_over() #show game over screen
-        restart() # Reset the game
+        game_over() #Shows game over screen upon loss
+        restart() #Resets the game
 
 def player_movement():
     """
@@ -95,16 +96,16 @@ def restart():
     """
     Resets the ball, player score, player width, and bounce count to the initial state.
     """
-    global ball_speed_x, ball_speed_y, score, bounce_count, start, player, player_speed
+    global ball_speed_x, ball_speed_y, score, bounce_count, start, player, player_speed #Globalized ball mechanics
 
     ball.center = (screen_width / 2, screen_height / 2)  # Reset ball position to center
     ball_speed_y, ball_speed_x = 0, 0  # Stop ball movement
 
-    player.width = 185 #resets paddle size
-    player.x = screen_width / 2 - player.width / 2  # recenter paddle
+    player.width = 185 #Resets paddle size
+    player.x = screen_width / 2 - player.width / 2  # Recenter paddle
     player.y = screen_height - player.height - 10
 
-    player_speed = 0
+    player_speed = 0 #Resets player speed
 
     score = 0  # Reset player score
     bounce_count = 0 #reset ball speed
@@ -120,7 +121,7 @@ pygame.init()
 clock = pygame.time.Clock()
 
 # Main Window setup
-screen_width = 510  # Screen width (can be adjusted)
+screen_width = 510  # Screen width (can be adjusted)x
 screen_height = 510  # Screen height (can be adjusted)
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Pong')  # Set window title
@@ -171,7 +172,7 @@ while True:
                 else:
                     pass
 
-            if event.key == pygame.K_ESCAPE:
+            if event.key == pygame.K_ESCAPE: #Pause Feature
                 if pause:
                     pause = False
                     pygame.mixer.music.unpause()
@@ -187,7 +188,7 @@ while True:
                 player_speed -= 7.8  # Stop moving right
 
     # Game Logic
-    if not pause:
+    if not pause: #Pauses ball and player
         ball_movement()
         player_movement()
 
