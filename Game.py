@@ -15,7 +15,7 @@ def ball_movement():
     # """
     # Handles the movement of the ball and collision detection with the player and screen boundaries.
     # """
-    global ball_speed_x, ball_speed_y, score, start, ball_image
+    global ball_speed_x, ball_speed_y, score, start, ball_image, pause
 
     # Move the ball
     ball.x += ball_speed_x
@@ -63,7 +63,7 @@ def ball_movement():
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 6: Add sound effects HERE
             sfx=pygame.mixer.Sound('deltarune explosion greenscreen.wav')
-            sfx.set_volume(0.3)
+            sfx.set_volume(0.2)
             sfx.play()
 
     # Ball collision with top boundary
@@ -147,7 +147,6 @@ bounce_count = 0
 basic_font = pygame.font.Font('freesansbold.ttf', 32)  # Font for displaying score
 
 start = False  # Indicates if the game has started
-
 # Main game loop
 while True:
     # Event handling
@@ -157,25 +156,11 @@ while True:
         if event.type == pygame.QUIT:  # Quit the game
             pygame.quit()
             sys.exit()
-
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player_speed -= 7.3  # Move paddle left
+                player_speed -= 7.8  # Move paddle left
             if event.key == pygame.K_RIGHT:
-                player_speed += 7.3  # Move paddle right
-
-            if event.key == pygame.K_ESCAPE:
-                if pause:
-                    pause = False
-                    pygame.mixer.music.unpause()
-                else:
-                    pause = True
-                    pygame.mixer.music.pause()
-                    while pause == True:
-                        text_font = pygame.font.SysFont('Press Start 2P', 80)
-                        draw_text("Paused", text_font, (255, 255, 255), 175, 185)
-                        pygame.display.flip()
-
+                player_speed += 7.8  # Move paddle right
             if event.key == pygame.K_SPACE:
                 if ball_speed_x == 0 and ball_speed_y == 0:
                     start = True  # Start the ball movement
@@ -186,11 +171,20 @@ while True:
                 else:
                     pass
 
+            if event.key == pygame.K_ESCAPE:
+                if pause:
+                    pause = False
+                    pygame.mixer.music.unpause()
+
+                else:
+                    pause = True
+                    pygame.mixer.music.pause()
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
-                player_speed += 7.3  # Stop moving left
+                player_speed += 7.8  # Stop moving left
             if event.key == pygame.K_RIGHT:
-                player_speed -= 7.3  # Stop moving right
+                player_speed -= 7.8  # Stop moving right
 
     # Game Logic
     if not pause:

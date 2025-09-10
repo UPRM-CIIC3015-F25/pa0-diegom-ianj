@@ -43,3 +43,16 @@ def game_over():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     waiting = False
+
+
+
+                if event.key == pygame.K_ESCAPE:
+                    if pause:
+                        pause = False
+
+                    else:
+                        pause = True
+                        while pause == True:
+                            text_font = pygame.font.SysFont('Press Start 2P', 80)
+                            draw_text("Paused", text_font, (255, 255, 255), 175, 185)
+                            pygame.display.flip()
